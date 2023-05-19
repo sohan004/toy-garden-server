@@ -39,6 +39,12 @@ async function run() {
             const toArray = await result.toArray()
             res.send(toArray)
         })
+        app.get('/category/:text', async (req, res) => {
+            const ctg = req.params.text
+            const result = await database.find({ category: { $eq: ctg } })
+            const toArray = await result.toArray()
+            res.send(toArray)
+        })
         app.delete('/toys/:id', async (req, res) => {
             const id = req.params.id
             const quary = { _id: new ObjectId(id) }
