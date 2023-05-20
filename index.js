@@ -30,6 +30,7 @@ async function run() {
         const index = await database.createIndex(indexKeys, indexOptions)
 
         app.post('/toys', async (req, res) => {
+
             const body = req.body
             const result = await database.insertOne(body);
             res.send(result)
@@ -59,9 +60,20 @@ async function run() {
         })
         app.get('/my_toys', async (req, res) => {
             const { email } = req.query
-            const data = await database.find({ email: { $eq: email } })
-            const toArray = await data.toArray()
-            res.send(toArray)
+
+            const { num } = req.query
+
+            if (+num === -1 || +num === 1) {
+                const result = await database.find({ email: { $eq: email } }).sort({ price: +num })
+                const toArray = await result.toArray()
+                res.send(toArray)
+            }
+            else {
+                const data = await database.find({ email: { $eq: email } })
+                const toArray = await data.toArray()
+                res.send(toArray)
+            }
+
 
         })
         app.put('/toys/:id', async (req, res) => {
