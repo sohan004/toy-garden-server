@@ -25,9 +25,9 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         const database = client.db('toysDB').collection('toys')
-        const indexKeys = { toyName: 1 }
-        const indexOptions = { name: 'toy_name' }
-        const index = await database.createIndex(indexKeys, indexOptions)
+        // const indexKeys = { toyName: 1 }
+        // const indexOptions = { name: 'toy_name' }
+        // const index = await database.createIndex(indexKeys, indexOptions)
 
         app.post('/toys', async (req, res) => {
 
